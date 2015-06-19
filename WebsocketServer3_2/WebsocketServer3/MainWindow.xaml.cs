@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Fleck;
+using Microsoft.Kinect;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel;
+using System.Diagnostics;//
+using System.Linq;//
+using System.Text;//
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
+using System.Windows.Controls;//
+using System.Windows.Data;//
+using System.Windows.Documents;//
+using System.Windows.Input;//
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Fleck;
-using Microsoft.Kinect;
-using System.ComponentModel;
-using System.Diagnostics;
+using System.Windows.Navigation;//
+using System.Windows.Shapes;//
 
 namespace WebsocketServer3_2
 {
@@ -144,6 +144,7 @@ namespace WebsocketServer3_2
         private CoordinateMapper coordinateMapper = null;
 
         private Body[] bodies = null;
+        private Body[] validBodies = null;
         private List<Tuple<JointType, JointType>> bones;
         private int displayWidth;
         private int displayHeight;
@@ -295,7 +296,7 @@ namespace WebsocketServer3_2
 
             foreach (var socket in _clients)
                 {
-                    socket.Send("Kinect is sending");
+                    socket.Send("0");
                 }
             InfraredFrame infraredFrame = null;
             BodyFrame bodyFrame = null;
@@ -375,33 +376,48 @@ namespace WebsocketServer3_2
 
         private void TransmitBodyJoints()
         {
+            
             if (bodies != null)
             {
                 headX = null;
+                int i = 0;
+                int j = 0;
                 foreach (Body body in bodies)
                 {
                     if (body.IsTracked)
                     {
-                    Joint headJoint = body.Joints[JointType.Head];
+                        i++;
+                    /*Joint headJoint = body.Joints[JointType.Head];
                         if (headJoint.TrackingState == TrackingState.Tracked)
                         {
                             headX += (headJoint.Position.X * 100).ToString();
                             
-                        }
+                        }*/
                         //break;
                     }
+                }
+                validBodies = new Body[i];
+                i = 0;
+                foreach (Body body in bodies)
+                {
+                    if(body.IsTracked)
+                    {
+                        validBodies[i] = bodies[j];
+                        i++;
+                    }
+                    j++;
                 }
 
                     //if (body.IsTracked)
                     //{
-                        string json = bodies.Serialize();
+                        string json = validBodies.Serialize();
                         foreach (var socket in _clients)
                         {
                             //socket.Send(((int)(headX*100)).ToString());
-                            //socket.Send(json);
+                            socket.Send(json);
                             if(headX!=null)
                             {
-                                socket.Send(headX);
+                                //socket.Send(headX);
                             }
                         }
                     //}
