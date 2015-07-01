@@ -294,11 +294,6 @@ namespace WebsocketServer3_2
                 return;
             }
 
-            /*foreach (var socket in _clients)
-                {
-                    socket.Send("0");
-                }
-             * */
             InfraredFrame infraredFrame = null;
             BodyFrame bodyFrame = null;
 
