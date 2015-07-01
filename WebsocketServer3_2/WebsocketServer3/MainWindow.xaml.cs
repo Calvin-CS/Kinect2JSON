@@ -133,7 +133,7 @@ namespace WebsocketServer3_2
         /// </summary>
         private DrawingImage imageSource2;
 
-
+        int counter = 0;
 
         private KinectSensor kinectSensor = null;
         private string statusText = null;
@@ -294,10 +294,11 @@ namespace WebsocketServer3_2
                 return;
             }
 
-            foreach (var socket in _clients)
+            /*foreach (var socket in _clients)
                 {
                     socket.Send("0");
                 }
+             * */
             InfraredFrame infraredFrame = null;
             BodyFrame bodyFrame = null;
 
@@ -379,7 +380,8 @@ namespace WebsocketServer3_2
             
             if (bodies != null)
             {
-                headX = null;
+                
+                //headX = null;
                 int i = 0;
                 int j = 0;
                 foreach (Body body in bodies)
@@ -407,18 +409,39 @@ namespace WebsocketServer3_2
                     }
                     j++;
                 }
+                /*IReadOnlyDictionary<JointType, Joint> joints = null;
+                int dummy = -1;
+                JointType thisJoint = 0;
+                foreach (Body body in validBodies)
+                {
+                    joints = body.Joints;
+                    foreach (JointType jointType in joints.Keys)
+                    {
+                        if (joints[jointType].TrackingState == TrackingState.NotTracked)
+                        {
+                            counter++;
+                            thisJoint = jointType;
+                        }
+                    }
+                }
 
+                if(counter != 0)
+                //if(counter > 50)
+                {
+                    dummy = 0;
+                }*/
                     //if (body.IsTracked)
                     //{
                         string json = validBodies.Serialize();
+                //string json = bodies.Serialize();
                         foreach (var socket in _clients)
                         {
                             //socket.Send(((int)(headX*100)).ToString());
                             socket.Send(json);
-                            if(headX!=null)
+                            /*if(headX!=null)
                             {
-                                //socket.Send(headX);
-                            }
+                                socket.Send(headX);
+                            }*/
                         }
                     //}
             }
