@@ -15,8 +15,6 @@ namespace KinectinScratchServer
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        int counter = 0;
-
         //The list of websockets that this server transmits to
         static List<IWebSocketConnection> _clients = new List<IWebSocketConnection>();
 
@@ -210,7 +208,7 @@ namespace KinectinScratchServer
         {
             InitializeConnection();
             InitializeKinect();
-            //********SetupInfraredDisplay();
+            SetupInfraredDisplay();
             SetupBodyJointsDisplay();
 
             InitializeComponent();
@@ -352,11 +350,12 @@ namespace KinectinScratchServer
             InfraredFrame infraredFrame = null;
             BodyFrame bodyFrame = null;
 
+            //Not split because the raw data is directly processed into the data to be displayed,
+            //and it is difficult to split them up.
             using (infraredFrame =
                 multiSourceFrame.InfraredFrameReference.AcquireFrame())
             {
-                //*******GetInfraredFrame(infraredFrame);
-                //*******ShowInfraredFrame();
+                ShowInfraredFrame(infraredFrame);
             }
             //Split into three functions to clearly show how things are working
             //and so the display and transmission don't interfere with each other
@@ -376,6 +375,63 @@ namespace KinectinScratchServer
 
             }
         }
+
+        // Reads in the infraredFrame
+        private void ShowInfraredFrame(InfraredFrame infraredFrame)
+        {
+            if (infraredFrame != null)
+            {
+                FrameDescription currentFrameDescription =
+                    infraredFrame.FrameDescription;
+
+                // the fastest way to process the infrared frame data is to directly access 
+                // the underlying buffer
+                using (Microsoft.Kinect.KinectBuffer infraredBuffer = infraredFrame.LockImageBuffer())
+                {
+                    // verify data and write the new infrared frame data to the display bitmap
+                    if (((this.currentFrameDescription.Width * this.currentFrameDescription.Height) == (infraredBuffer.Size / this.currentFrameDescription.BytesPerPixel)) &&
+                        (this.currentFrameDescription.Width == this.bitmap.PixelWidth) && (this.currentFrameDescription.Height == this.bitmap.PixelHeight))
+                    {
+                        //Process the raw data into RGB
+                        this.ProcessInfraredFrameData(infraredBuffer.UnderlyingBuffer, infraredBuffer.Size);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Directly accesses the underlying image buffer of the InfraredFrame to 
+        /// create a displayable bitmap.
+        /// This function requires the /unsafe compiler option as we make use of direct
+        /// access to the native memory pointed to by the infraredFrameData pointer.
+        /// </summary>
+        /// <param name="infraredFrameData">Pointer to the InfraredFrame image data</param>
+        /// <param name="infraredFrameDataSize">Size of the InfraredFrame image data</param>
+        private unsafe void ProcessInfraredFrameData(IntPtr infraredFrameData, uint infraredFrameDataSize)
+        {
+            // infrared frame data is a 16 bit value
+            ushort* frameData = (ushort*)infraredFrameData;
+
+            // lock the target bitmap
+            this.bitmap.Lock();
+
+            // get the pointer to the bitmap's back buffer
+            float* backBuffer = (float*)this.bitmap.BackBuffer;
+
+            // process the infrared data
+            for (int i = 0; i < (int)(infraredFrameDataSize / this.currentFrameDescription.BytesPerPixel); ++i)
+            {
+                // since we are displaying the image as a normalized grey scale image, we need to convert from
+                // the ushort data (as provided by the InfraredFrame) to a value from [InfraredOutputValueMinimum, InfraredOutputValueMaximum]
+                backBuffer[i] = Math.Min(InfraredOutputValueMaximum, (((float)frameData[i] / InfraredSourceValueMaximum * InfraredSourceScale) * (1.0f - InfraredOutputValueMinimum)) + InfraredOutputValueMinimum);
+            }
+
+            // mark the entire bitmap as needing to be drawn
+            this.bitmap.AddDirtyRect(new Int32Rect(0, 0, this.bitmap.PixelWidth, this.bitmap.PixelHeight));
+
+            // unlock the bitmap
+            this.bitmap.Unlock();
+        }
         
         // Reads in the bodyFrame (if it contains bodies)
         private void GetBodyJoints(BodyFrame bodyFrame)
@@ -394,7 +450,10 @@ namespace KinectinScratchServer
                 dataReceived = true;
             }
         }
-
+        /* Draws tracked bodies using random colors,
+         * inside a window, clipping outside joints,
+         * and showing bone thickness by confidence level.
+         */
         private void ShowBodyJoints(DrawingContext dc)
         {
             dc.DrawRectangle(Brushes.Black, null, new Rect(0.0,0.0, this.displayWidth, this.displayHeight));
@@ -429,6 +488,7 @@ namespace KinectinScratchServer
 
                     this.DrawBody(joints, jointPoints, dc, drawPen);
 
+                    //Extra drawing showing handstates
                     this.DrawHand(body.HandLeftState, jointPoints[JointType.HandLeft], dc);
                     this.DrawHand(body.HandRightState, jointPoints[JointType.HandRight], dc);
 
@@ -614,6 +674,21 @@ namespace KinectinScratchServer
             }
         }
 
+        //Set up the disokay showing the infrared
+        private void SetupInfraredDisplay()
+        {
+            //get the frame properties
+            FrameDescription infraredFrameDescription =
+                        this.kinectSensor.InfraredFrameSource.FrameDescription;
+            //Make it the current frame properties
+            this.CurrentFrameDescription = infraredFrameDescription;
+
+            //Create a bitmap that we can write infrared data to, in order to be displayed.
+            this.bitmap = new WriteableBitmap(this.currentFrameDescription.Width,
+                this.currentFrameDescription.Height, 96.0, 96.0, PixelFormats.Gray32Float, null);
+        }
+
+        //Set up the display showing the body joints
         private void SetupBodyJointsDisplay()
         {
             // get the depth (display) extents
