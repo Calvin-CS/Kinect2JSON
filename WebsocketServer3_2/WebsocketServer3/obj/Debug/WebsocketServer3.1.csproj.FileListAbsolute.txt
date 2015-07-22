@@ -1,6 +1,0 @@
-C:\Users\Isaac\Documents\Visual Studio 2013\Projects\WebsocketServer3.1\WebsocketServer3\bin\Debug\WebsocketServer3.exe.config
-C:\Users\Isaac\Documents\Visual Studio 2013\Projects\WebsocketServer3.1\WebsocketServer3\obj\Debug\WebsocketServer3.exe
-C:\Users\Isaac\Documents\Visual Studio 2013\Projects\WebsocketServer3.1\WebsocketServer3\obj\Debug\WebsocketServer3.pdb
-C:\Users\Isaac\Documents\Visual Studio 2013\Projects\WebsocketServer3_1\WebsocketServer3\bin\Debug\WebsocketServer3.exe.config
-C:\Users\Isaac\Documents\Visual Studio 2013\Projects\WebsocketServer3_1\WebsocketServer3\obj\Debug\WebsocketServer3.exe
-C:\Users\Isaac\Documents\Visual Studio 2013\Projects\WebsocketServer3_1\WebsocketServer3\obj\Debug\WebsocketServer3.pdb

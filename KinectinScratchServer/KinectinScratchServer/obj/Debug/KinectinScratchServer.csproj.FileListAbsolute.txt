@@ -1,0 +1,16 @@
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\bin\Debug\KinectinScratchServer.exe.config
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\MainWindow.baml
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\MainWindow.g.cs
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\App.g.cs
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer_MarkupCompile.cache
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.g.resources
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.Properties.Resources.resources
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.csproj.GenerateResource.Cache
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\bin\Debug\KinectinScratchServer.exe
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\bin\Debug\KinectinScratchServer.pdb
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\bin\Debug\Fleck.dll
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\bin\Debug\Microsoft.Kinect.dll
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\bin\Debug\Microsoft.Kinect.xml
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.csprojResolveAssemblyReference.cache
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.exe
+c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.pdb
