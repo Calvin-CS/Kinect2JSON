@@ -76,12 +76,16 @@
             ['b', 'body tracked', 'tracked'],
             ['', 'console.log %n', 'write'],
             ['', 'bad only %n', 'writeB'],
-            ['r', '%m.l id', 'l', 'Body 1']
+            ['r', '%m.l id', 'l', 'Body 1'],
+            ['r', '%m.l Left Handstate', 'lhandd', 'Body 1'],
+            ['b', '%m.l Left Handstate is %m.n', 'lhand', 'Body 1', 'Closed'],
+            ['b', '%m.l Right Handstate is %m.n', 'rhand', 'Body 1', 'Closed']
         ],
         
         menus: {
 	    k: ['Left Ankle X', 'Left Ankle Y', 'Right Ankle X', 'Right Ankle Y', 'Left Elbow X', 'Left Elbow Y', 'Right Elbow X', 'Right Elbow Y', 'Left Foot X', 'Left Foot Y', 'Right Foot X', 'Right Foot Y', 'Left Hand X', 'Left Hand Y', 'Right Hand X', 'Right Hand Y', 'Left Hand Tip X', 'Left Hand Tip Y', 'Right Hand Tip X', 'Right Hand Tip Y', 'Head X', 'Head Y', 'Left Hip X', 'Left Hip Y', 'Right Hip X', 'Right Hip Y', 'Left Knee X', 'Left Knee Y', 'Right Knee X', 'Right Knee Y', 'Neck X', 'Neck Y', 'Left Shoulder X', 'Left Shoulder Y', 'Right Shoulder X', 'Right Shoulder Y', 'Spine Base X', 'Spine Base Y', 'Spine Middle X', 'Spine Middle Y', 'Spine Shoulder X', 'Spine Shoulder Y', 'Left Thumb X', 'Left Thumb Y', 'Right Thumb X', 'Right Thumb Y', 'Left Wrist X', 'Left Wrist Y', 'Right Wrist X', 'Right Wrist Y'],
-        l: ['Body 1', 'Body 2']
+        l: ['Body 1', 'Body 2', 'Body 3', 'Body 4', 'Body 5', 'Body 6'],
+        n: ['Unknown', 'Not Tracked', 'Open', 'Closed', 'Lasso']
     }
     };
 
@@ -140,7 +144,106 @@
         switch(m){
             case 'Body 1': return jsonObject.bodies[0].id;
             case 'Body 2': return jsonObject.bodies[1].id;
+            case 'Body 3': return jsonObject.bodies[2].id;
+            case 'Body 4': return jsonObject.bodies[3].id;
+            case 'Body 5': return jsonObject.bodies[4].id;
+            case 'Body 6': return jsonObject.bodies[5].id;
         }
+    }
+    
+    ext.lhandd = function(l)
+    {
+        var i;
+        var j;
+        switch(l){
+            case 'Body 1': i=0;
+                break;
+            case 'Body 2': i=1;
+                break;
+            case 'Body 3': i=2;
+                break;
+            case 'Body 4': i=3;
+                break;
+            case 'Body 5': i=4;
+                break;
+            case 'Body 6': i=5;
+                break;
+        }
+        return jsonObject.bodies[i].lhandstate;
+    }
+        
+       
+    
+    ext.lhand = function(l,n)
+    {
+        var i;
+        var j;
+        switch(l){
+            case 'Body 1': i=0;
+                break;
+            case 'Body 2': i=1;
+                break;
+            case 'Body 3': i=2;
+                break;
+            case 'Body 4': i=3;
+                break;
+            case 'Body 5': i=4;
+                break;
+            case 'Body 6': i=5;
+                break;
+        }
+        
+        switch(n)
+        {
+            case 'Unknown': j = 0;
+                break;
+            case 'Not Tracked': j = 1;
+                break;
+            case 'Open': j = 2;
+                break;
+            case 'Closed': j = 3;
+                break;
+            case 'Lasso': j = 4;
+                break;
+        }
+        
+        return jsonObject.bodies[i].lhandstate == j;
+    }
+    
+        ext.rhand = function(l,n)
+    {
+        var i;
+        var j;
+        switch(l){
+            case 'Body 1': i=0;
+                break;
+            case 'Body 2': i=1;
+                break;
+            case 'Body 3': i=2;
+                break;
+            case 'Body 4': i=3;
+                break;
+            case 'Body 5': i=4;
+                break;
+            case 'Body 6': i=5;
+                break;
+        }
+        
+        switch(n)
+        {
+            case 'Unknown': j = 0;
+                break;
+            case 'Not Tracked': j = 1;
+                break;
+            case 'Open': j = 2;
+                break;
+            case 'Closed': j = 3;
+                break;
+            case 'Lasso': j = 4;
+                break;
+        }
+        
+        return jsonObject.bodies[i].rhandstate == j;
     }
 
     ext.k1 = function(m) {
