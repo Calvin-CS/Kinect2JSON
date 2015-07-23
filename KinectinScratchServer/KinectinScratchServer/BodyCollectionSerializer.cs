@@ -23,7 +23,7 @@ namespace KinectinScratchServer
             public List<JSONBody> Bodies { get; set; }
         }
 
-        //a body has an ID and a list of joints.
+        //a body has an ID, a list of joints, a left handstate, and a right handstate.
         [DataContract]
         class JSONBody
         {
@@ -32,6 +32,12 @@ namespace KinectinScratchServer
 
             [DataMember(Name = "joints")]
             public List<JSONJoint> Joints { get; set; }
+
+            [DataMember(Name = "lhandstate")]
+            public int LState { get; set; }
+
+            [DataMember(Name = "rhandstate")]
+            public int RState { get; set; }
         }
 
         //a joint has name and x, y, z coordinates that (should) correspond to the joints x, y, z coordinates. 
@@ -66,7 +72,9 @@ namespace KinectinScratchServer
                 JSONBody jsonBody = new JSONBody
                 {
                     ID = body.TrackingId.ToString(),
-                    Joints = new List<JSONJoint>()
+                    Joints = new List<JSONJoint>(),
+                    LState = (int)body.HandLeftState,
+                    RState = (int)body.HandRightState
                 };
 
                 //Add all joints, again, regardless of content
