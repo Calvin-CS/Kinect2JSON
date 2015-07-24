@@ -15,7 +15,7 @@
     console.log("connecting to server ..");
 
     // create a new websocket and connect
-    window.ws = new wsImpl('ws://0.0.0.0:8181/');
+    window.ws = new wsImpl('ws://localhost:8181/');
 
     // when data is comming from the server, this metod is called
     ws.onmessage = function (evt) {
@@ -74,7 +74,7 @@
             ['', 'restart connection', 'restart'],
             ['', 'test block', 'test_block'],
             ['b', 'connected', 'connected'],
-            ['b', 'body tracked', 'tracked'],
+            ['b', '%m.l tracked', 'tracked', 'Body 1'],
             ['', 'console.log %n', 'write'],
             ['', 'bad only %n', 'writeB'],
             ['r', '%m.l id', 'l', 'Body 1'],
@@ -123,15 +123,25 @@
     };
     
     //True if scratch is receiving body data
-    ext.tracked = function()
+    ext.tracked = function(m)
     {
-        if(status == (0 || 1)){
-            return false;
+        var i = -1;
+        switch(m){
+            case 'Body 1': i = 0;
+                break;
+            case 'Body 2': i = 1;
+                break;
+            case 'Body 3': i = 2;
+                break;
+            case 'Body 4': i = 3;
+                break;
+            case 'Body 5': i = 4;
+                break;
+            case 'Body 6': i = 5;
+                break;
         }
         
-        if(status == 2){
-            return true;
-        }
+        return jsonObject.bodies[i].id != 0;
     };
     
     //Outputs numeric content to console
