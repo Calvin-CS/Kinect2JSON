@@ -218,11 +218,33 @@ namespace KinectinScratchServer
         //we use 0.0.0.0:8181 because reasons. (I followed other people's ideas, and it works fine)
         public static void InitializeConnection()
         {
+
+            //local server
             var server = new WebSocketServer("ws://0.0.0.0:8181");
 
             //When a socket opens, add it to the client list, when it closes, remove it,
             //and when the socket recieves a message, transmit the message.
             server.Start(socket =>
+            {
+                socket.OnOpen = () =>
+                {
+                    _clients.Add(socket);
+                };
+
+                socket.OnClose = () =>
+                {
+                    _clients.Remove(socket);
+                };
+
+                socket.OnMessage = message =>
+                {
+
+                };
+            });
+
+            //server on the public ip
+            var server1 = new WebSocketServer("ws://"+GetPublicIP()+":8181");
+            server1.Start(socket =>
             {
                 socket.OnOpen = () =>
                 {
@@ -703,6 +725,22 @@ namespace KinectinScratchServer
 
             // Create an image source that we can use in our image control
             this.imageSource2 = new DrawingImage(this.drawingGroup);
+        }
+
+        //Copy pasted from stackoverflow (see sources)
+        //Gets the public IP for the current computer
+        public static string GetPublicIP()
+        {
+            string url = "http://checkip.dyndns.org";
+            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+            System.Net.WebResponse resp = req.GetResponse();
+            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+            string response = sr.ReadToEnd().Trim();
+            string[] a = response.Split(':');
+            string a2 = a[1].Substring(1);
+            string[] a3 = a2.Split('<');
+            string a4 = a3[0];
+            return a4;
         }
 
         /// <summary>

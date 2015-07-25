@@ -16,7 +16,7 @@
 
     // create a new websocket and connect
     window.ws = new wsImpl('ws://localhost:8181/');
-
+    
     // when data is comming from the server, this metod is called
     ws.onmessage = function (evt) {
         jsonObject = JSON.parse(evt.data);
@@ -71,7 +71,8 @@
             ['r', '%m.k body 1 sensor value', 'k', 'Head X'],
             ['r', '%m.k body 2 sensor value', 'k1', 'Head X'],
             ['r', '%m.l %m.k1 %m.x', 'joints', 'Body 1', 'Head', 'x'],
-            ['', 'restart connection', 'restart'],
+            ['', 'restart local connection', 'restart'],
+            ['', 'Create connection to %s', 'ipconnect'],
             ['', 'test block', 'test_block'],
             ['b', 'connected', 'connected'],
             ['b', '%m.l tracked', 'tracked', 'Body 1'],
@@ -101,6 +102,11 @@
         console.log("connecting to server ..");
         window.ws = new wsImpl('ws://localhost:8181/');
     };
+    
+    ext.ipconnect = function(s) {
+        console.log("connection to "+s);
+        window.ws = new wsImpl('ws://'+s+':8181/');
+    }
 	
     ext.power = function(base, exponent) {
         return Math.pow(base, exponent);
