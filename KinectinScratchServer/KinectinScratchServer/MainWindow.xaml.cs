@@ -24,7 +24,7 @@ namespace KinectinScratchServer
         private CoordinateMapper coordinateMapper = null;
 
         //The description of the frames
-        private FrameDescription currentFrameDescription;
+        //private FrameDescription currentFrameDescription;
 
         //The list of bones and colors (for the skeleton display)
         private List<Tuple<JointType, JointType>> bones;
@@ -81,7 +81,7 @@ namespace KinectinScratchServer
         private const float InfraredSceneStandardDeviations = 3.0f;
 
         //The bitmap that contains the infrared data
-        private WriteableBitmap bitmap = null;
+        //private WriteableBitmap bitmap = null;
 
         /// <summary>
         /// Radius of drawn hand circles
@@ -145,13 +145,13 @@ namespace KinectinScratchServer
         private DrawingImage imageSource2;
 
         //The infrared display
-        public ImageSource ImageSource1
-        {
-            get
-            {
-                return this.bitmap;
-            }
-        }
+        //public ImageSource ImageSource1
+        //{
+            //get
+            //{
+                //return this.bitmap;
+            //}
+        //}
 
         //The body display
         public ImageSource ImageSource2
@@ -163,7 +163,7 @@ namespace KinectinScratchServer
         }
 
         //The description of the frame in use.
-        public FrameDescription CurrentFrameDescription
+        /*public FrameDescription CurrentFrameDescription
         {
             get { return this.currentFrameDescription; }
             set
@@ -178,7 +178,7 @@ namespace KinectinScratchServer
                     }
                 }
             }
-        }
+        }*/
 
         //Event handle for property changed which handles the status text and both display windows
         public event PropertyChangedEventHandler PropertyChanged;
@@ -208,7 +208,7 @@ namespace KinectinScratchServer
         {
             InitializeConnection();
             InitializeKinect();
-            SetupInfraredDisplay();
+            //SetupInfraredDisplay();
             SetupBodyJointsDisplay();
 
             InitializeComponent();
@@ -369,16 +369,16 @@ namespace KinectinScratchServer
             }
 
             //Initialize frames to grab individual frames from the multisource frame.
-            InfraredFrame infraredFrame = null;
+            //InfraredFrame infraredFrame = null;
             BodyFrame bodyFrame = null;
 
             //Not split because the raw data is directly processed into the data to be displayed,
             //and it is difficult to split them up.
-            using (infraredFrame =
-                multiSourceFrame.InfraredFrameReference.AcquireFrame())
-            {
-                ShowInfraredFrame(infraredFrame);
-            }
+            //using (infraredFrame =
+            //    multiSourceFrame.InfraredFrameReference.AcquireFrame())
+            //{
+            //    ShowInfraredFrame(infraredFrame);
+            //}
             //Split into three functions to clearly show how things are working
             //and so the display and transmission don't interfere with each other
             using (bodyFrame =
@@ -399,7 +399,7 @@ namespace KinectinScratchServer
         }
 
         // Reads in the infraredFrame
-        private void ShowInfraredFrame(InfraredFrame infraredFrame)
+        /*private void ShowInfraredFrame(InfraredFrame infraredFrame)
         {
             if (infraredFrame != null)
             {
@@ -419,7 +419,7 @@ namespace KinectinScratchServer
                     }
                 }
             }
-        }
+        }*/
 
         /// <summary>
         /// Directly accesses the underlying image buffer of the InfraredFrame to 
@@ -429,7 +429,7 @@ namespace KinectinScratchServer
         /// </summary>
         /// <param name="infraredFrameData">Pointer to the InfraredFrame image data</param>
         /// <param name="infraredFrameDataSize">Size of the InfraredFrame image data</param>
-        private unsafe void ProcessInfraredFrameData(IntPtr infraredFrameData, uint infraredFrameDataSize)
+        /*private unsafe void ProcessInfraredFrameData(IntPtr infraredFrameData, uint infraredFrameDataSize)
         {
             // infrared frame data is a 16 bit value
             ushort* frameData = (ushort*)infraredFrameData;
@@ -453,7 +453,7 @@ namespace KinectinScratchServer
 
             // unlock the bitmap
             this.bitmap.Unlock();
-        }
+        }*/
         
         // Reads in the bodyFrame (if it contains bodies)
         private void GetBodyJoints(BodyFrame bodyFrame)
@@ -697,7 +697,7 @@ namespace KinectinScratchServer
         }
 
         //Set up the disokay showing the infrared
-        private void SetupInfraredDisplay()
+        /*private void SetupInfraredDisplay()
         {
             //get the frame properties
             FrameDescription infraredFrameDescription =
@@ -708,7 +708,7 @@ namespace KinectinScratchServer
             //Create a bitmap that we can write infrared data to, in order to be displayed.
             this.bitmap = new WriteableBitmap(this.currentFrameDescription.Width,
                 this.currentFrameDescription.Height, 96.0, 96.0, PixelFormats.Gray32Float, null);
-        }
+        }*/
 
         //Set up the display showing the body joints
         private void SetupBodyJointsDisplay()
