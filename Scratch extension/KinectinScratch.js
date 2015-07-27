@@ -6,7 +6,7 @@
     var xScale = 280;
     var yScale = 210;
     var zScale = 200;
-    var status = 1;
+    var status = 0;
     
     alert("BEFORE CLICKING OK: Make sure you have have followed the instructions in Kinect2Scratch");
     
@@ -17,7 +17,7 @@
     // create a new websocket and connect
     window.ws = new wsImpl('ws://localhost:8181/');
     
-    // when data is comming from the server, this metod is called
+    // when data is comming from the server, this method is called
     ws.onmessage = function (evt) {
         jsonObject = JSON.parse(evt.data);
             if(jsonObject.bodies == '')
@@ -72,7 +72,8 @@
             ['r', '%m.k body 2 sensor value', 'k1', 'Head X'],
             ['r', '%m.l %m.k1 %m.x', 'joints', 'Body 1', 'Head', 'x'],
             ['', 'restart local connection', 'restart'],
-            ['', 'Create connection to %s', 'ipconnect'],
+            ['', 'Create connection to %s', 'ipconnect', '0.0.0.0'],
+            ['', 'Close connection', 'closeconn'],
             ['', 'test block', 'test_block'],
             ['b', 'connected', 'connected'],
             ['b', '%m.l tracked', 'tracked', 'Body 1'],
@@ -99,13 +100,19 @@
     
     //restarts the client side of the server
     ext.restart = function() {
-        console.log("connecting to server ..");
+        window.ws.close();
+        console.log("connecting to local server ..");
         window.ws = new wsImpl('ws://localhost:8181/');
     };
     
     ext.ipconnect = function(s) {
-        console.log("connection to "+s);
+        window.ws.close();
+        console.log("connecting to "+s+' ..');
         window.ws = new wsImpl('ws://'+s+':8181/');
+    }
+    
+    ext.closeconn = function() {
+        window.ws.close();
     }
 	
     ext.power = function(base, exponent) {
