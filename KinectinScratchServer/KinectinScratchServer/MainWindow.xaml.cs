@@ -83,6 +83,9 @@ namespace KinectinScratchServer
         //The bitmap that contains the infrared data
         //private WriteableBitmap bitmap = null;
 
+        //The color bitmap to be displayed
+        private WriteableBitmap colorBitmap = null;
+
         /// <summary>
         /// Radius of drawn hand circles
         /// </summary>
@@ -144,14 +147,14 @@ namespace KinectinScratchServer
         /// </summary>
         private DrawingImage imageSource2;
 
-        //The infrared display
-        //public ImageSource ImageSource1
-        //{
-            //get
-            //{
-                //return this.bitmap;
-            //}
-        //}
+        //The color display
+        public ImageSource ImageSource1
+        {
+            get
+            {
+                return this.colorBitmap;
+            }
+        }
 
         //The body display
         public ImageSource ImageSource2
@@ -209,6 +212,7 @@ namespace KinectinScratchServer
             InitializeConnection();
             InitializeKinect();
             //SetupInfraredDisplay();
+            SetupColorDisplay();
             SetupBodyJointsDisplay();
 
             InitializeComponent();
@@ -280,7 +284,8 @@ namespace KinectinScratchServer
                 this.kinectSensor.OpenMultiSourceFrameReader(
                 //FrameSourceTypes.Infrared
                 //|
-                FrameSourceTypes.Body);
+                FrameSourceTypes.Color
+                | FrameSourceTypes.Body);
 
 
             //Making the function "Reader_MultiSourceFrameArrived" run every time a frame comes in
@@ -371,6 +376,7 @@ namespace KinectinScratchServer
 
             //Initialize frames to grab individual frames from the multisource frame.
             //InfraredFrame infraredFrame = null;
+            ColorFrame colorFrame = null;
             BodyFrame bodyFrame = null;
 
             //Not split because the raw data is directly processed into the data to be displayed,
@@ -380,6 +386,12 @@ namespace KinectinScratchServer
             //{
             //    ShowInfraredFrame(infraredFrame);
             //}
+
+            using (colorFrame =
+                multiSourceFrame.ColorFrameReference.AcquireFrame())
+            {
+                ShowColorFrame(colorFrame);
+            }
             //Split into three functions to clearly show how things are working
             //and so the display and transmission don't interfere with each other
             using (bodyFrame =
@@ -396,6 +408,33 @@ namespace KinectinScratchServer
                     TransmitBodyJoints();
                 }
 
+            }
+        }
+
+        //Reads in the colorFrame
+        private void ShowColorFrame(ColorFrame colorFrame)
+        {
+            if (colorFrame != null)
+            {
+                FrameDescription colorFrameDescription =
+                    colorFrame.FrameDescription;
+                using (KinectBuffer colorBuffer = colorFrame.LockRawImageBuffer())
+                {
+                    this.colorBitmap.Lock();
+
+                    // verify data and write the new color frame data to the display bitmap
+                    if ((colorFrameDescription.Width == this.colorBitmap.PixelWidth) && (colorFrameDescription.Height == this.colorBitmap.PixelHeight))
+                    {
+                        colorFrame.CopyConvertedFrameDataToIntPtr(
+                            this.colorBitmap.BackBuffer,
+                            (uint)(colorFrameDescription.Width * colorFrameDescription.Height * 4),
+                            ColorImageFormat.Bgra);
+
+                        this.colorBitmap.AddDirtyRect(new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight));
+                    }
+
+                    this.colorBitmap.Unlock();
+                }
             }
         }
 
@@ -695,6 +734,15 @@ namespace KinectinScratchServer
             {
                 socket.Send(json);
             }
+        }
+
+        //Set up the display showing the color
+
+        private void SetupColorDisplay()
+        {
+            FrameDescription colorFrameDescription = this.kinectSensor.ColorFrameSource.CreateFrameDescription(ColorImageFormat.Bgra);
+            this.colorBitmap = new WriteableBitmap(colorFrameDescription.Width,
+                colorFrameDescription.Height, 96.0, 96.0, PixelFormats.Bgr32, null);
         }
 
         //Set up the disokay showing the infrared
