@@ -23,9 +23,6 @@ namespace KinectinScratchServer
         private MultiSourceFrameReader multiSourceFrameReader = null;
         private CoordinateMapper coordinateMapper = null;
 
-        //The description of the frames
-        //private FrameDescription currentFrameDescription;
-
         //The list of bones and colors (for the skeleton display)
         private List<Tuple<JointType, JointType>> bones;
         private List<Pen> bodyColors;
@@ -40,48 +37,6 @@ namespace KinectinScratchServer
         private Body[] validBodies = null;
         // a boolean checking if the current bodyFrame contains bodies
         bool dataReceived = false;
-
-        /// <summary>
-        /// The highest value that can be returned in the InfraredFrame.
-        /// It is cast to a float for readability in the visualization code.
-        /// </summary>
-        private const float InfraredSourceValueMaximum = (float)ushort.MaxValue;
-
-        /// <summary>
-        /// Used to set the lower limit, post processing, of the
-        /// infrared data that we will render.
-        /// Increasing or decreasing this value sets a brightness 
-        /// "wall" either closer or further away.
-        /// </summary>
-        private const float InfraredOutputValueMinimum = 0.01f;
-
-        /// <summary>
-        /// The upper limit, post processing, of the
-        /// infrared data that will render.
-        /// </summary>
-        private const float InfraredOutputValueMaximum = 1.0f;
-
-        /// <summary>
-        /// The InfraredScalr value specifies what the the source data will be scaled by.
-        /// Generally, this should be the average infrared 
-        /// value of the scene. This value was selected by analyzing the average 
-        /// pixel intensity for a given scene. 
-        /// This could be calculated at runtime to handle different IR conditions
-        /// of a scene (outside vs inside).
-        /// </summary>
-        private const float InfraredSourceScale = 0.75f;
-
-        /// <summary>
-        /// The InfraredSceneStandardDeviations value specifies the number of 
-        /// standard deviations to apply to InfraredSceneValueAverage. 
-        /// This value was selected by analyzing data from a given scene.
-        /// This could be calculated at runtime to handle different IR conditions
-        /// of a scene (outside vs inside).
-        /// </summary>
-        private const float InfraredSceneStandardDeviations = 3.0f;
-
-        //The bitmap that contains the infrared data
-        //private WriteableBitmap bitmap = null;
 
         //The color bitmap to be displayed
         private WriteableBitmap colorBitmap = null;
@@ -165,24 +120,6 @@ namespace KinectinScratchServer
             }
         }
 
-        //The description of the frame in use.
-        /*public FrameDescription CurrentFrameDescription
-        {
-            get { return this.currentFrameDescription; }
-            set
-            {
-                if (this.currentFrameDescription != value)
-                {
-                    this.currentFrameDescription = value;
-                    if (this.PropertyChanged != null)
-                    {
-                        this.PropertyChanged(this, new
-                            PropertyChangedEventArgs("CurrentFrameDescription"));
-                    }
-                }
-            }
-        }*/
-
         //Event handle for property changed which handles the status text and both display windows
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -211,7 +148,6 @@ namespace KinectinScratchServer
         {
             InitializeConnection();
             InitializeKinect();
-            //SetupInfraredDisplay();
             SetupColorDisplay();
             SetupBodyJointsDisplay();
 
@@ -282,8 +218,6 @@ namespace KinectinScratchServer
             //We use multi-source because we are reading two difference kinds of sensors.
             this.multiSourceFrameReader =
                 this.kinectSensor.OpenMultiSourceFrameReader(
-                //FrameSourceTypes.Infrared
-                //|
                 FrameSourceTypes.Color
                 | FrameSourceTypes.Body);
 
@@ -359,7 +293,7 @@ namespace KinectinScratchServer
         }
 
         /*When a frame arrives from the kinect (which is 30 fps),
-         * calls the functions that updates the infrared and skeleton display,
+         * calls the functions that updates the color and skeleton display,
          * and the function that transmits the body data
          */
         private void Reader_MultiSourceFrameArrived(
@@ -375,18 +309,10 @@ namespace KinectinScratchServer
             }
 
             //Initialize frames to grab individual frames from the multisource frame.
-            //InfraredFrame infraredFrame = null;
             ColorFrame colorFrame = null;
             BodyFrame bodyFrame = null;
 
-            //Not split because the raw data is directly processed into the data to be displayed,
-            //and it is difficult to split them up.
-            //using (infraredFrame =
-            //    multiSourceFrame.InfraredFrameReference.AcquireFrame())
-            //{
-            //    ShowInfraredFrame(infraredFrame);
-            //}
-
+            //Not split because the raw data doesn't need much processing to be displayed
             using (colorFrame =
                 multiSourceFrame.ColorFrameReference.AcquireFrame())
             {
@@ -437,63 +363,6 @@ namespace KinectinScratchServer
                 }
             }
         }
-
-        // Reads in the infraredFrame
-        /*private void ShowInfraredFrame(InfraredFrame infraredFrame)
-        {
-            if (infraredFrame != null)
-            {
-                FrameDescription currentFrameDescription =
-                    infraredFrame.FrameDescription;
-
-                // the fastest way to process the infrared frame data is to directly access 
-                // the underlying buffer
-                using (Microsoft.Kinect.KinectBuffer infraredBuffer = infraredFrame.LockImageBuffer())
-                {
-                    // verify data and write the new infrared frame data to the display bitmap
-                    if (((this.currentFrameDescription.Width * this.currentFrameDescription.Height) == (infraredBuffer.Size / this.currentFrameDescription.BytesPerPixel)) &&
-                        (this.currentFrameDescription.Width == this.bitmap.PixelWidth) && (this.currentFrameDescription.Height == this.bitmap.PixelHeight))
-                    {
-                        //Process the raw data into RGB
-                        this.ProcessInfraredFrameData(infraredBuffer.UnderlyingBuffer, infraredBuffer.Size);
-                    }
-                }
-            }
-        }*/
-
-        /// <summary>
-        /// Directly accesses the underlying image buffer of the InfraredFrame to 
-        /// create a displayable bitmap.
-        /// This function requires the /unsafe compiler option as we make use of direct
-        /// access to the native memory pointed to by the infraredFrameData pointer.
-        /// </summary>
-        /// <param name="infraredFrameData">Pointer to the InfraredFrame image data</param>
-        /// <param name="infraredFrameDataSize">Size of the InfraredFrame image data</param>
-        /*private unsafe void ProcessInfraredFrameData(IntPtr infraredFrameData, uint infraredFrameDataSize)
-        {
-            // infrared frame data is a 16 bit value
-            ushort* frameData = (ushort*)infraredFrameData;
-
-            // lock the target bitmap
-            this.bitmap.Lock();
-
-            // get the pointer to the bitmap's back buffer
-            float* backBuffer = (float*)this.bitmap.BackBuffer;
-
-            // process the infrared data
-            for (int i = 0; i < (int)(infraredFrameDataSize / this.currentFrameDescription.BytesPerPixel); ++i)
-            {
-                // since we are displaying the image as a normalized grey scale image, we need to convert from
-                // the ushort data (as provided by the InfraredFrame) to a value from [InfraredOutputValueMinimum, InfraredOutputValueMaximum]
-                backBuffer[i] = Math.Min(InfraredOutputValueMaximum, (((float)frameData[i] / InfraredSourceValueMaximum * InfraredSourceScale) * (1.0f - InfraredOutputValueMinimum)) + InfraredOutputValueMinimum);
-            }
-
-            // mark the entire bitmap as needing to be drawn
-            this.bitmap.AddDirtyRect(new Int32Rect(0, 0, this.bitmap.PixelWidth, this.bitmap.PixelHeight));
-
-            // unlock the bitmap
-            this.bitmap.Unlock();
-        }*/
         
         // Reads in the bodyFrame (if it contains bodies)
         private void GetBodyJoints(BodyFrame bodyFrame)
@@ -737,7 +606,6 @@ namespace KinectinScratchServer
         }
 
         //Set up the display showing the color
-
         private void SetupColorDisplay()
         {
             FrameDescription colorFrameDescription = this.kinectSensor.ColorFrameSource.CreateFrameDescription(ColorImageFormat.Bgra);
@@ -745,19 +613,6 @@ namespace KinectinScratchServer
                 colorFrameDescription.Height, 96.0, 96.0, PixelFormats.Bgr32, null);
         }
 
-        //Set up the disokay showing the infrared
-        /*private void SetupInfraredDisplay()
-        {
-            //get the frame properties
-            FrameDescription infraredFrameDescription =
-                        this.kinectSensor.InfraredFrameSource.FrameDescription;
-            //Make it the current frame properties
-            this.CurrentFrameDescription = infraredFrameDescription;
-
-            //Create a bitmap that we can write infrared data to, in order to be displayed.
-            this.bitmap = new WriteableBitmap(this.currentFrameDescription.Width,
-                this.currentFrameDescription.Height, 96.0, 96.0, PixelFormats.Gray32Float, null);
-        }*/
 
         //Set up the display showing the body joints
         private void SetupBodyJointsDisplay()
@@ -814,7 +669,6 @@ namespace KinectinScratchServer
         {
             if (this.multiSourceFrameReader != null)
             {
-                // InfraredFrameReader is IDisposable
                 this.multiSourceFrameReader.Dispose();
                 this.multiSourceFrameReader = null;
             }
