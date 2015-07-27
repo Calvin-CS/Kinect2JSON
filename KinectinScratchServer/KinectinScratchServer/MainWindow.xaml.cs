@@ -278,8 +278,9 @@ namespace KinectinScratchServer
             //We use multi-source because we are reading two difference kinds of sensors.
             this.multiSourceFrameReader =
                 this.kinectSensor.OpenMultiSourceFrameReader(
-                FrameSourceTypes.Infrared
-                | FrameSourceTypes.Body);
+                //FrameSourceTypes.Infrared
+                //|
+                FrameSourceTypes.Body);
 
 
             //Making the function "Reader_MultiSourceFrameArrived" run every time a frame comes in
