@@ -44,3 +44,8 @@ Click "Ok", "I understand, continue", and "Ok"
 If you see a bunch of blocks show up, congratulations, KinectinScratch is now loaded!
 
 If you downloaded the samples, you can click File -> Load Project and navigate to where you unzipped the samples and open one to try things out.
+
+
+Troubleshooting
+
+The server listens on port 8181.
