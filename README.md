@@ -37,6 +37,8 @@ Make sure your Kinect is connected.
 
 Then, go to the startscreen, and type in "kinectinscratchserver". Hit enter.
 
+It might take a minute. Be patient.
+
 Go to www.scratchx.org/?url=http://visor841.github.io/Kinect2Scratch/KinectinScratch.js#scratch
 
 Click "Ok", "I understand, continue", and "Ok"
