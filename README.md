@@ -9,7 +9,11 @@ A window will pop up about an "End User License Agreement".
 
 Check the box to the left of "I agree to the license terms and conditions"
 
-Then click install. The sdk will install. Click close when it finishes.
+Then click install. The sdk will install.
+
+If a window pops up, click yes.
+
+Click close when it finishes.
 
 
 
@@ -23,7 +27,7 @@ Click the files you want to download. "Server.zip" and "KinectinScratch.js" are 
 
 Next, go into the unzipped "server" folder. Open the "server" folder inside, and then click on setup.
 
-A window will come up saying "windows protected your PC". Click "more info", then click "run anyway".
+A window will come up saying "windows protected your PC". ***Don't click on "OK"*** Click "more info", then click "run anyway".
 
 A box will come up saying "Application Install - Security Warning". Click "Install".
 
