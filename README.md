@@ -1,6 +1,6 @@
 # How to install Kinect-in-Scratch
 
-Step 1: Kinect 2.0 SDK
+***Step 1: Kinect 2.0 SDK***
 Go to http://download.microsoft.com/download/F/2/D/F2D1012E-3BC6-49C5-B8B3-5ACFF58AF7B8/KinectSDK-v2.0_1409-Setup.exe
 
 A file should download. Click on the file to run it.
@@ -17,7 +17,7 @@ Click close when it finishes.
 
 
 
-Step 2: Download the files and install the server.
+***Step 2: Download the files and install the server.***
 
 Go to https://github.com/visor841/Kinect-in-Scratch/releases
 
@@ -33,11 +33,13 @@ A box will come up saying "Application Install - Security Warning". Click "Insta
 
 Another window will come up saying "windows protected your PC". Click "more info", then click "run anyway".
 
+A window will popup about network features. Check the box next to "public networks", then click "ok".
 
 
-Step 3: Run the program
 
-Make sure your Kinect is connected.
+***Step 3: Run the program***
+
+Make sure your Kinect is connected in a USB 3.0 port.
 
 Then, go to the startscreen, and type in "kinectinscratchserver". Hit enter.
 
