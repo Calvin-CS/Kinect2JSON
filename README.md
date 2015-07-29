@@ -14,7 +14,7 @@ Check the box to the left of "I agree to the license terms and conditions"
 
 Then click install. The sdk will install.
 
-A window will pop up. Click yes.
+A "user account control" window will pop up. Click yes.
 
 Click close when it finishes.
 
