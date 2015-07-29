@@ -14,3 +14,7 @@ c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\Kinec
 c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.csprojResolveAssemblyReference.cache
 c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.exe
 c:\users\isaac\documents\visual studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.pdb
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\bin\Debug\KinectinScratchServer.exe.manifest
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\bin\Debug\KinectinScratchServer.application
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.exe.manifest
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\KinectinScratchServer\KinectinScratchServer\obj\Debug\KinectinScratchServer.application

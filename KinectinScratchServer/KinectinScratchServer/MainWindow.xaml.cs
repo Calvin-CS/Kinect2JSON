@@ -160,7 +160,7 @@ namespace KinectinScratchServer
         {
 
             //local server
-            var server = new WebSocketServer("ws://0.0.0.0:8181");
+            var server = new WebSocketServer("ws://127.0.0.1:8181");
 
             //When a socket opens, add it to the client list, when it closes, remove it,
             //and when the socket recieves a message, transmit the message.
