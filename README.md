@@ -22,6 +22,8 @@ Click close when it finishes.
 
 ***Step 2: Download the files and install the server.***
 
+Make sure your Kinect is connected in a USB 3.0 port.
+
 Go to https://github.com/visor841/Kinect-in-Scratch/releases
 
 Go to the downloads section next to "Latest release"
@@ -38,13 +40,9 @@ Another window will come up saying "windows protected your PC". Click "more info
 
 A window will popup about "windows security alert". Check the box next to "public networks", then click "allow access".
 
-
-
-***Step 3: Run the program***
-
-Make sure your Kinect is connected in a USB 3.0 port.
-
 The program will now launch.  It might take a minute. Be patient.
+
+***Step 3: Running the program***
 
 When you need to launch the program in the future, go to the start screen, and type in "kinectinscratchserver". Hit enter.
 
