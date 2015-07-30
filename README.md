@@ -1,26 +1,9 @@
-# How to install Kinect-in-Scratch
+# Kinect-in-Scratch readme
 
-This tutorial assumes your are running Chrome. Instructions should be similar for other browsers.  
+***Install instructions***
+
+These instructions assume your are running Chrome. Instructions should be similar for other browsers.  
 KinectinScratch currently does not support internet explorer.
-
-***Step 1: Kinect 2.0 SDK***
-Go to http://download.microsoft.com/download/F/2/D/F2D1012E-3BC6-49C5-B8B3-5ACFF58AF7B8/KinectSDK-v2.0_1409-Setup.exe
-
-A file should download. Click on the file to run it.
-
-A window will pop up about an "End User License Agreement".
-
-Check the box to the left of "I agree to the license terms and conditions"
-
-Then click install. The sdk will install.
-
-A "user account control" window will pop up. Click yes.
-
-Click close when it finishes.
-
-
-
-***Step 2: Download the files and install the server.***
 
 Make sure your Kinect is connected in a USB 3.0 port.
 
@@ -42,11 +25,13 @@ A window will popup about "windows security alert". Check the box next to "publi
 
 The program will now launch.  It might take a minute. Be patient.
 
-***Step 3: Running the program***
-
 When you need to launch the program in the future, go to the start screen, and type in "kinectinscratchserver". Hit enter.
 
-Go to www.scratchx.org/?url=http://visor841.github.io/Kinect2Scratch/KinectinScratch.js#scratch
+Go to www.scratchx.org/#scratch.
+
+Right-click on "load experimental extension". A file dialog box will pop up.
+
+In the dialog box navigate to your downloads folder and choose KinectinScratch.
 
 Click "Ok", "I understand, continue", and "Ok"
 
@@ -55,6 +40,6 @@ If you see a bunch of blocks show up, congratulations, KinectinScratch is now lo
 If you downloaded the samples, you can click File -> Load Project and navigate to where you unzipped the samples and open one to try things out.
 
 
-Troubleshooting
+***Troubleshooting***
 
 The server listens on port 8181.
