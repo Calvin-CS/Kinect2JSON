@@ -1,0 +1,3 @@
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\bin\Debug\KinectinScratchServer.exe.config
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\obj\Debug\KinectinScratchServer.exe
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\obj\Debug\KinectinScratchServer.pdb
