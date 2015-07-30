@@ -78,9 +78,8 @@
             ['', 'console.log %n', 'write'],
             ['', 'bad only %n', 'writeB'],
             ['r', '%m.l id', 'l', 'Body 1'],
-            ['r', '%m.l Left Handstate', 'lhandd', 'Body 1'],
-            ['b', '%m.l Left Handstate is %m.n', 'lhand', 'Body 1', 'Closed'],
-            ['b', '%m.l Right Handstate is %m.n', 'rhand', 'Body 1', 'Closed']
+            ['r', '%m.l %m.d Handstate', 'handd', 'Body 1', 'Left'],
+            ['b', '%m.l %m.d Handstate is %m.n', 'hand', 'Body 1', 'Left', 'Closed']
         ],
         
         menus: {
@@ -89,6 +88,7 @@
         l: ['Body 1', 'Body 2', 'Body 3', 'Body 4', 'Body 5', 'Body 6'],
         n: ['Unknown', 'Not Tracked', 'Open', 'Closed', 'Lasso'],
         x: ['x', 'y', 'z'],
+        d: ['Left', 'Right']
     }
     };
     
@@ -177,7 +177,7 @@
         }
     };
     
-    //m: the body whose tracking status is to be checked
+    //m: the body chosen (Body 1-6)
     //True if scratch is receiving the chosen body data
     ext.tracked = function(m)
     {
@@ -216,7 +216,7 @@
     };
     
     
-    //m: the body whose tracking status is to be checked
+    //m: the body chosen (Body 1-6)
     //Gives the id of the selected body
     ext.l = function(m)
     {
@@ -231,9 +231,10 @@
     }
     
     
-    //l: the body whose left handstate we are checking
+    //l: the body chosen (Body 1-6)
+    //d: which handstate (left or right)
     //Outputs the left handstate of the selected body
-    ext.lhandd = function(l)
+    ext.handd = function(l,d)
     {
         var i;
         var j;
@@ -251,13 +252,19 @@
             case 'Body 6': i=5;
                 break;
         }
-        return jsonObject.bodies[i].lhandstate;
+        
+        switch(d)
+        {
+            case 'Left': return jsonObject.bodies[i].lhandstate;
+            case 'Right': return jsonObject.bodies[i].rhandstate;
+        }
     }
     
-    //l: The selected body
-    //n: The selected handstate
+    //l: The selected body (Body 1-6)
+    //d: Which handstate (left or right)
+    //n: The selected handstate (Unknown, Not Tracked, Open, Closed, Lasso)
     //Returns true if the selected bodies left handstate is the same as block selected one.
-    ext.lhand = function(l,n)
+    ext.hand = function(l,d,n)
     {
         var i;
         var j;
@@ -290,51 +297,17 @@
                 break;
         }
         
-        return jsonObject.bodies[i].lhandstate == j;
+        switch(d)
+        {
+            case 'Left': return jsonObject.bodies[i].lhandstate == j;
+            case 'Right': return jsonObject.bodies[i].rhandstate == j;
+        }
     }
     
-    //l: The selected body
-    //n: The selected handstate
-    //Returns true if the selected bodies right handstate is the same as block selected one.
-    ext.rhand = function(l,n)
-    {
-        var i;
-        var j;
-        switch(l){
-            case 'Body 1': i=0;
-                break;
-            case 'Body 2': i=1;
-                break;
-            case 'Body 3': i=2;
-                break;
-            case 'Body 4': i=3;
-                break;
-            case 'Body 5': i=4;
-                break;
-            case 'Body 6': i=5;
-                break;
-        }
         
-        switch(n)
-        {
-            case 'Unknown': j = 0;
-                break;
-            case 'Not Tracked': j = 1;
-                break;
-            case 'Open': j = 2;
-                break;
-            case 'Closed': j = 3;
-                break;
-            case 'Lasso': j = 4;
-                break;
-        }
-        
-        return jsonObject.bodies[i].rhandstate == j;
-    }
-        
-    //l: The body chosen.
-    //k1: The joint chosen.
-    //x: The chosen coordinate.
+    //l: The body chosen (Body 1-6).
+    //k1: The joint chosen (All joint the kinect v2 tracks).
+    //x: The chosen coordinate (x, y, or z).
     //Gets the coordinate chosen from the joint chosen from the body chosen
     ext.joints = function(l,k1,x)
     {
