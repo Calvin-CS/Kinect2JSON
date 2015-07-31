@@ -8,7 +8,7 @@ using Microsoft.Kinect;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
-namespace KinectinScratchServer
+namespace Kinect2JSON
 {
     /// <summary>
     /// Serializes a Kinect skeleton to JSON fromat.
