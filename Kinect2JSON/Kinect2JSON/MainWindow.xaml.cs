@@ -17,6 +17,9 @@ namespace Kinect2JSON
     {
         //The list of websockets that this server transmits to
         static List<IWebSocketConnection> _clients = new List<IWebSocketConnection>();
+        //The list of websockets that only changes on each transmission
+        //(to avoid changing the list while the foreach is running)
+        static List<IWebSocketConnection> _clientsTransmit = new List<IWebSocketConnection>();
 
         //The kinect sensor, the frame reader, and the mapper (to map the skeleton to the display window)
         private KinectSensor kinectSensor = null;
@@ -168,12 +171,12 @@ namespace Kinect2JSON
             {
                 socket.OnOpen = () =>
                 {
-                    _clients.Add(socket);
+                    _clientsTransmit.Add(socket);
                 };
 
                 socket.OnClose = () =>
                 {
-                    _clients.Remove(socket);
+                    _clientsTransmit.Remove(socket);
                 };
 
                 socket.OnMessage = message =>
@@ -188,12 +191,12 @@ namespace Kinect2JSON
             {
                 socket.OnOpen = () =>
                 {
-                    _clients.Add(socket);
+                    _clientsTransmit.Add(socket);
                 };
 
                 socket.OnClose = () =>
                 {
-                    _clients.Remove(socket);
+                    _clientsTransmit.Remove(socket);
                 };
 
                 socket.OnMessage = message =>
@@ -598,8 +601,11 @@ namespace Kinect2JSON
             //Turning the tracked bodies into json
             string json = validBodies.Serialize();
 
+            //Copying the list so the foreach loop doesn't deal with a moving target.
+            _clientsTransmit = _clients;
+
             //Transmitting the json
-            foreach (var socket in _clients)
+            foreach (var socket in _clientsTransmit)
             {
                 socket.Send(json);
             }
