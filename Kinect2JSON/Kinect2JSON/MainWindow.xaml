@@ -1,4 +1,8 @@
-﻿<Window x:Class="Kinect2JSON.MainWindow"
+﻿<!--
+ * Authors: Isaac Zylstra and Victor Norman @ Calvin College, Grand Rapids, MI.
+ * Contact: vtn2@calvin.edu
+    -->
+    <Window x:Class="Kinect2JSON.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow"

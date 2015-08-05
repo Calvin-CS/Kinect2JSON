@@ -1,4 +1,9 @@
-﻿using Fleck;
+﻿/*
+ * Authors: Isaac Zylstra and Victor Norman @ Calvin College, Grand Rapids, MI.
+ * Contact: vtn2@calvin.edu
+ */
+
+using Fleck;
 using Microsoft.Kinect;
 using System;
 using System.Collections.Generic;
@@ -17,9 +22,6 @@ namespace Kinect2JSON
     {
         //The list of websockets that this server transmits to
         static List<IWebSocketConnection> _clients = new List<IWebSocketConnection>();
-        //The list of websockets that only changes on each transmission
-        //(to avoid changing the list while the foreach is running)
-        static List<IWebSocketConnection> _clientsTransmit = new List<IWebSocketConnection>();
 
         //The kinect sensor, the frame reader, and the mapper (to map the skeleton to the display window)
         private KinectSensor kinectSensor = null;
@@ -171,12 +173,12 @@ namespace Kinect2JSON
             {
                 socket.OnOpen = () =>
                 {
-                    _clientsTransmit.Add(socket);
+                    _clients.Add(socket);
                 };
 
                 socket.OnClose = () =>
                 {
-                    _clientsTransmit.Remove(socket);
+                    _clients.Remove(socket);
                 };
 
                 socket.OnMessage = message =>
@@ -191,12 +193,12 @@ namespace Kinect2JSON
             {
                 socket.OnOpen = () =>
                 {
-                    _clientsTransmit.Add(socket);
+                    _clients.Add(socket);
                 };
 
                 socket.OnClose = () =>
                 {
-                    _clientsTransmit.Remove(socket);
+                    _clients.Remove(socket);
                 };
 
                 socket.OnMessage = message =>
@@ -602,7 +604,7 @@ namespace Kinect2JSON
             string json = validBodies.Serialize();
 
             //Copying the list so the foreach loop doesn't deal with a moving target.
-            _clientsTransmit = _clients;
+            List<IWebSocketConnection> _clientsTransmit = new List<IWebSocketConnection>(_clients);
 
             //Transmitting the json
             foreach (var socket in _clientsTransmit)

@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ * Authors: Isaac Zylstra and Victor Norman @ Calvin College, Grand Rapids, MI.
+ * Contact: vtn2@calvin.edu
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;

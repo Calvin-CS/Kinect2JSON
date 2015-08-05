@@ -1,4 +1,9 @@
-﻿<Application x:Class="Kinect2JSON.App"
+﻿<!--
+ * Authors: Isaac Zylstra and Victor Norman @ Calvin College, Grand Rapids, MI.
+ * Contact: vtn2@calvin.edu
+    -->
+    
+    <Application x:Class="Kinect2JSON.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
