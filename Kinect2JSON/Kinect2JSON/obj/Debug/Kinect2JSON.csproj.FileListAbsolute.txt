@@ -18,3 +18,23 @@ C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\obj
 C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.application
 C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.exe
 C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.pdb
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\bin\Debug\Kinect2JSON.exe.config
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.exe
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.pdb
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\bin\Debug\Kinect2JSON.exe.manifest
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\bin\Debug\Kinect2JSON.application
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\bin\Debug\Kinect2JSON.exe
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\bin\Debug\Kinect2JSON.pdb
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\bin\Debug\Fleck.dll
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\bin\Debug\Microsoft.Kinect.dll
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\bin\Debug\Microsoft.Kinect.xml
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.csprojResolveAssemblyReference.cache
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\MainWindow.baml
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\MainWindow.g.cs
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\App.g.cs
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON_MarkupCompile.cache
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.g.resources
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.Properties.Resources.resources
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.csproj.GenerateResource.Cache
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.exe.manifest
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.application
