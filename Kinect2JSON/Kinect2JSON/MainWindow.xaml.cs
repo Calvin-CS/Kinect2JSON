@@ -155,16 +155,15 @@ namespace Kinect2JSON
             SetupColorDisplay();
             SetupBodyJointsDisplay();
             InitializeLocalConnection();
-            InitializePublicConnection();
 
             InitializeComponent();
         }
-
-        //starting up the websocket server
-        //we use 0.0.0.0:8181 because reasons. (I followed other people's ideas, and it works fine)
+        /*
+         * starting up the local websocket server
+         * we use 127.0.0.1:8181 because that's the local computer ip.
+         */
         public static void InitializeLocalConnection()
         {
-            //System.Threading.Thread.Sleep(5000);
             //local server
             var server = new WebSocketServer("ws://127.0.0.1:8181");
 
@@ -189,11 +188,19 @@ namespace Kinect2JSON
             });
         }
 
+        /*
+         * starting up the public websocket server
+         * we use 127.0.0.1:8181 because that's the local computer ip.
+         * this is run after the window loads so as to not slow down the window loading
+         * */
         public static void InitializePublicConnection()
         {
 
             //server on the public ip
-            var server1 = new WebSocketServer("ws://"+GetPublicIP()+":8181");
+            var server1 = new WebSocketServer("ws://" + GetPublicIP() + ":8181");
+
+            //When a socket opens, add it to the client list, when it closes, remove it,
+            //and when the socket recieves a message, transmit the message.
             server1.Start(socket =>
             {
                 socket.OnOpen = () =>
@@ -649,7 +656,6 @@ namespace Kinect2JSON
         public static string GetPublicIP()
         {
             string url = "http://checkip.dyndns.org";
-            //System.Threading.Thread.Sleep(5000);
             System.Net.WebRequest req = System.Net.WebRequest.Create(url);
             System.Net.WebResponse resp = req.GetResponse();
             System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
@@ -662,7 +668,9 @@ namespace Kinect2JSON
         }
 
         /// <summary>
-        /// Execute start up tasks
+        /// Execute start up tasks.
+        /// InitializePublicConnection is here instead of in Main Window,
+        /// because it is sometimes slow.
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
@@ -672,8 +680,7 @@ namespace Kinect2JSON
             {
                 this.multiSourceFrameReader.MultiSourceFrameArrived += this.Reader_MultiSourceFrameArrived;
             }
-
-
+            InitializePublicConnection();
         }
 
         /// <summary>
