@@ -151,19 +151,20 @@ namespace Kinect2JSON
         //runs the main functions, divided for clarity
         public MainWindow()
         {
-            InitializeConnection();
             InitializeKinect();
             SetupColorDisplay();
             SetupBodyJointsDisplay();
+            InitializeLocalConnection();
+            InitializePublicConnection();
 
             InitializeComponent();
         }
 
         //starting up the websocket server
         //we use 0.0.0.0:8181 because reasons. (I followed other people's ideas, and it works fine)
-        public static void InitializeConnection()
+        public static void InitializeLocalConnection()
         {
-
+            //System.Threading.Thread.Sleep(5000);
             //local server
             var server = new WebSocketServer("ws://127.0.0.1:8181");
 
@@ -186,6 +187,10 @@ namespace Kinect2JSON
 
                 };
             });
+        }
+
+        public static void InitializePublicConnection()
+        {
 
             //server on the public ip
             var server1 = new WebSocketServer("ws://"+GetPublicIP()+":8181");
@@ -644,6 +649,7 @@ namespace Kinect2JSON
         public static string GetPublicIP()
         {
             string url = "http://checkip.dyndns.org";
+            //System.Threading.Thread.Sleep(5000);
             System.Net.WebRequest req = System.Net.WebRequest.Create(url);
             System.Net.WebResponse resp = req.GetResponse();
             System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
@@ -666,6 +672,8 @@ namespace Kinect2JSON
             {
                 this.multiSourceFrameReader.MultiSourceFrameArrived += this.Reader_MultiSourceFrameArrived;
             }
+
+
         }
 
         /// <summary>
