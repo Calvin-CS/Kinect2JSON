@@ -40,8 +40,12 @@
         </Viewbox>
 
 
-        <StatusBar Grid.Row="2" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
-            <StatusBarItem Content="{Binding StatusText}" />
+        <StatusBar Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Name="kinectStatusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
+            <StatusBarItem Content="{Binding KinectStatusText}" />
+        </StatusBar>
+
+        <StatusBar Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Name="publicConnectionStatusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
+            <StatusBarItem Content="{Binding PublicConnectionStatusText}" />
         </StatusBar>
     </Grid>
 

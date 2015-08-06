@@ -130,19 +130,39 @@ namespace Kinect2JSON
 
         //The code that updates the status text based on whether the kinect is running.
         //Changed by Sensor_IsAvailableChanged
-        private string statusText = null;
-        public string StatusText
+        private string kinectStatusText = null;
+        public string KinectStatusText
         {
-            get { return this.statusText; }
+            get { return this.kinectStatusText; }
             set
             {
-                if (this.statusText != value)
+                if (this.kinectStatusText != value)
                 {
-                    this.statusText = value;
+                    this.kinectStatusText = value;
                     if (this.PropertyChanged != null)
                     {
                         this.PropertyChanged(this, new
-                            PropertyChangedEventArgs("StatusText"));
+                            PropertyChangedEventArgs("KinectStatusText"));
+                    }
+                }
+            }
+        }
+
+        //The code that updates the status text based on whether the public connection has started.
+        //Changed in InitializePublicConnection
+        private string publicConnectionStatusText = "hello!";
+        public string PublicConnectionStatusText
+        {
+            get { return this.publicConnectionStatusText; }
+            set
+            {
+                if (this.publicConnectionStatusText != value)
+                {
+                    this.publicConnectionStatusText = value;
+                    if (this.PropertyChanged != null)
+                    {
+                        this.PropertyChanged(this, new
+                            PropertyChangedEventArgs("PublicConnectionStatusText"));
                     }
                 }
             }
@@ -155,6 +175,7 @@ namespace Kinect2JSON
             SetupColorDisplay();
             SetupBodyJointsDisplay();
             InitializeLocalConnection();
+            InitializePublicConnection();
 
             InitializeComponent();
         }
@@ -193,7 +214,7 @@ namespace Kinect2JSON
          * we use 127.0.0.1:8181 because that's the local computer ip.
          * this is run after the window loads so as to not slow down the window loading
          * */
-        public static void InitializePublicConnection()
+        public void InitializePublicConnection()
         {
 
             //server on the public ip
@@ -218,6 +239,8 @@ namespace Kinect2JSON
 
                 };
             });
+
+            PublicConnectionStatusText = "Public Connection Started";
         }
 
         /*Sets up the kinect side of the server
@@ -680,7 +703,7 @@ namespace Kinect2JSON
             {
                 this.multiSourceFrameReader.MultiSourceFrameArrived += this.Reader_MultiSourceFrameArrived;
             }
-            InitializePublicConnection();
+            //InitializePublicConnection();
         }
 
         /// <summary>
@@ -708,8 +731,8 @@ namespace Kinect2JSON
         private void Sensor_IsAvailableChanged(object sender,
             IsAvailableChangedEventArgs args)
         {
-            this.StatusText = this.kinectSensor.IsAvailable ?
-                "Running" : "Not Available";
+            this.KinectStatusText = this.kinectSensor.IsAvailable ?
+                "Kinect Running" : "Kinect Not Available";
         }
     }
 }
