@@ -2,12 +2,13 @@
  * Authors: Isaac Zylstra and Victor Norman @ Calvin College, Grand Rapids, MI.
  * Contact: vtn2@calvin.edu
     -->
-    <Window x:Class="Kinect2JSON.MainWindow"
+<Window x:Class="Kinect2JSON.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow"
         Height="518" Width="1230"  
-        Closing="MainWindow_Closing">
+        Closing="MainWindow_Closing"
+        Activated="MainWindow_Activated">
     <Window.Resources>
         <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e" />
         <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f" />

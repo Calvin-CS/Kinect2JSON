@@ -148,6 +148,8 @@ namespace Kinect2JSON
             }
         }
 
+        //Boolean stating whether the server has started
+        public bool publicStarted = false;
         //The code that updates the status text based on whether the public connection has started.
         //Changed in InitializePublicConnection
         private string publicConnectionStatusText = "hello!";
@@ -175,7 +177,7 @@ namespace Kinect2JSON
             SetupColorDisplay();
             SetupBodyJointsDisplay();
             InitializeLocalConnection();
-            InitializePublicConnection();
+            //InitializePublicConnection();
 
             InitializeComponent();
         }
@@ -216,7 +218,6 @@ namespace Kinect2JSON
          * */
         public void InitializePublicConnection()
         {
-
             //server on the public ip
             var server1 = new WebSocketServer("ws://" + GetPublicIP() + ":8181");
 
@@ -239,7 +240,6 @@ namespace Kinect2JSON
 
                 };
             });
-
             PublicConnectionStatusText = "Public Connection Started";
         }
 
@@ -697,13 +697,13 @@ namespace Kinect2JSON
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void MainWindow_Activated(object sender, EventArgs e)
         {
-            if (this.multiSourceFrameReader != null)
+            if (!publicStarted)
             {
-                this.multiSourceFrameReader.MultiSourceFrameArrived += this.Reader_MultiSourceFrameArrived;
+                InitializePublicConnection();
+                publicStarted = true;
             }
-            //InitializePublicConnection();
         }
 
         /// <summary>

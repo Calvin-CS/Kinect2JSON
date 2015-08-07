@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Kinect2JSON.exe" size="52736">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Kinect2JSON.exe" size="53248">
       <assemblyIdentity name="Kinect2JSON" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rT9s6ZJNpiBiLsSSLe0aLF+msRS3JnGwefoUJmYn/XM=</dsig:DigestValue>
+        <dsig:DigestValue>tyRw5jaOB/6htJHEjt9TmC09oDXuzrrsz/QCi91zzRQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
