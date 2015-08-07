@@ -18,3 +18,6 @@ C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\obj
 C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.application
 C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.exe
 C:\Users\Isaac\Documents\Visual Studio 2013\Projects\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.pdb
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\bin\Debug\Kinect2JSON.exe.config
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.exe
+C:\Users\Isaac\Documents\GitHub\Kinect2JSON\Kinect2JSON\Kinect2JSON\obj\Debug\Kinect2JSON.pdb
