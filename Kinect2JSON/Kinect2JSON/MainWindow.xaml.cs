@@ -218,29 +218,36 @@ namespace Kinect2JSON
          * */
         public void InitializePublicConnection()
         {
-            //server on the public ip
-            var server1 = new WebSocketServer("ws://" + GetPublicIP() + ":8181");
+            try{
+                //server on the public ip
+                var server1 = new WebSocketServer("ws://" + GetPublicIP() + ":8181");
 
-            //When a socket opens, add it to the client list, when it closes, remove it,
-            //and when the socket recieves a message, transmit the message.
-            server1.Start(socket =>
+                //When a socket opens, add it to the client list, when it closes, remove it,
+                //and when the socket recieves a message, transmit the message.
+                server1.Start(socket =>
+                {
+                    socket.OnOpen = () =>
+                    {
+                        _clients.Add(socket);
+                    };
+
+                    socket.OnClose = () =>
+                    {
+                        _clients.Remove(socket);
+                    };
+
+                    socket.OnMessage = message =>
+                    {
+
+                    };
+                });
+                PublicConnectionStatusText = "Public Connection Started";
+
+            }
+            catch(System.Net.WebException e)
             {
-                socket.OnOpen = () =>
-                {
-                    _clients.Add(socket);
-                };
-
-                socket.OnClose = () =>
-                {
-                    _clients.Remove(socket);
-                };
-
-                socket.OnMessage = message =>
-                {
-
-                };
-            });
-            PublicConnectionStatusText = "Public Connection Started";
+                PublicConnectionStatusText = "Public Connection Failed";
+            }
         }
 
         /*Sets up the kinect side of the server
@@ -678,16 +685,18 @@ namespace Kinect2JSON
         //Gets the public IP for the current computer
         public static string GetPublicIP()
         {
-            string url = "http://checkip.dyndns.org";
-            System.Net.WebRequest req = System.Net.WebRequest.Create(url);
-            System.Net.WebResponse resp = req.GetResponse();
-            System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
-            string response = sr.ReadToEnd().Trim();
-            string[] a = response.Split(':');
-            string a2 = a[1].Substring(1);
-            string[] a3 = a2.Split('<');
-            string a4 = a3[0];
-            return a4;
+                string url = "http://checkip.dyndns.org";
+                System.Net.WebRequest req = System.Net.WebRequest.Create(url);
+                System.Net.WebResponse resp = req.GetResponse();
+                System.IO.StreamReader sr = new System.IO.StreamReader(resp.GetResponseStream());
+                string response = sr.ReadToEnd().Trim();
+                string[] a = response.Split(':');
+                string a2 = a[1].Substring(1);
+                string[] a3 = a2.Split('<');
+                string a4 = a3[0];
+                return a4;
+
+
         }
 
         /// <summary>
