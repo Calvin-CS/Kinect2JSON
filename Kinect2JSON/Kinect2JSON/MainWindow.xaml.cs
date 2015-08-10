@@ -185,13 +185,37 @@ namespace Kinect2JSON
          * starting up the local websocket server
          * we use 127.0.0.1:8181 because that's the local computer ip.
          */
-        public static void InitializeLocalConnection()
+        public void InitializeLocalConnection()
         {
             //local server
-            var server = new WebSocketServer("ws://127.0.0.1:8181");
+            var server1 = new WebSocketServer("ws://127.0.0.1:8181");
+            ServerSetup(ref server1);
+        }
 
-            //When a socket opens, add it to the client list, when it closes, remove it,
-            //and when the socket recieves a message, transmit the message.
+        /*
+         * starting up the public websocket server
+         * we use 127.0.0.1:8181 because that's the local computer ip.
+         * this is run after the window loads so as to not slow down the window loading
+         * */
+        public void InitializePublicConnection()
+        {
+            try{
+                //server on the public ip
+                var server2 = new WebSocketServer("ws://" + GetPublicIP() + ":8181");
+                ServerSetup(ref server2);
+                PublicConnectionStatusText = "Public Connection Started";
+            }
+            catch(System.Net.WebException e)
+            {
+                PublicConnectionStatusText = "Public Connection Failed";
+            }
+        }
+        /* Setting up the servers (they all have the same properties other than IP, which is in the declaration)
+         * When a socket opens, add it to the client list, when it closes, remove it,
+         * and when the socket recieves a message, transmit the message.
+         */
+        public void ServerSetup(ref WebSocketServer server)
+        {
             server.Start(socket =>
             {
                 socket.OnOpen = () =>
@@ -209,45 +233,6 @@ namespace Kinect2JSON
 
                 };
             });
-        }
-
-        /*
-         * starting up the public websocket server
-         * we use 127.0.0.1:8181 because that's the local computer ip.
-         * this is run after the window loads so as to not slow down the window loading
-         * */
-        public void InitializePublicConnection()
-        {
-            try{
-                //server on the public ip
-                var server1 = new WebSocketServer("ws://" + GetPublicIP() + ":8181");
-
-                //When a socket opens, add it to the client list, when it closes, remove it,
-                //and when the socket recieves a message, transmit the message.
-                server1.Start(socket =>
-                {
-                    socket.OnOpen = () =>
-                    {
-                        _clients.Add(socket);
-                    };
-
-                    socket.OnClose = () =>
-                    {
-                        _clients.Remove(socket);
-                    };
-
-                    socket.OnMessage = message =>
-                    {
-
-                    };
-                });
-                PublicConnectionStatusText = "Public Connection Started";
-
-            }
-            catch(System.Net.WebException e)
-            {
-                PublicConnectionStatusText = "Public Connection Failed";
-            }
         }
 
         /*Sets up the kinect side of the server
