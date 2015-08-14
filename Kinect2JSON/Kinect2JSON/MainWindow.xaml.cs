@@ -177,7 +177,6 @@ namespace Kinect2JSON
             SetupColorDisplay();
             SetupBodyJointsDisplay();
             InitializeLocalConnection();
-            //InitializePublicConnection();
 
             InitializeComponent();
         }
@@ -210,6 +209,7 @@ namespace Kinect2JSON
                 PublicConnectionStatusText = "Public Connection Failed";
             }
         }
+
         /* Setting up the servers (they all have the same properties other than IP, which is in the declaration)
          * When a socket opens, add it to the client list, when it closes, remove it,
          * and when the socket recieves a message, transmit the message.
@@ -267,8 +267,6 @@ namespace Kinect2JSON
 
             //Open the sensor (begins reading)
             this.kinectSensor.Open();
-
-
         }
 
         /*Defining the bones to be displayed a Tuple containing two joint types,
@@ -688,6 +686,8 @@ namespace Kinect2JSON
         /// Execute start up tasks.
         /// InitializePublicConnection is here instead of in Main Window,
         /// because it is sometimes slow.
+        /// Due to this, blank window pops up while public connection is starting.
+        /// publicStarted makes sure that the connection is only started once.
         /// </summary>
         /// <param name="sender">object sending the event</param>
         /// <param name="e">event arguments</param>
