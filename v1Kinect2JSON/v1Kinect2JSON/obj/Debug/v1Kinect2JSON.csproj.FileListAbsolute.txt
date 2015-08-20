@@ -1,0 +1,14 @@
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\MainWindow.baml
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\MainWindow.g.cs
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\App.g.cs
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON_MarkupCompile.cache
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.g.resources
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.Properties.Resources.resources
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.csproj.GenerateResource.Cache
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\bin\Debug\v1Kinect2JSON.exe.config
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\bin\Debug\v1Kinect2JSON.exe
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\bin\Debug\v1Kinect2JSON.pdb
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\bin\Debug\Fleck.dll
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.exe
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.pdb
+c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.csprojResolveAssemblyReference.cache
