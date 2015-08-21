@@ -184,7 +184,7 @@ namespace v1Kinect2JSON
             {
                 SetupColorDisplay();
                 SetupBodyJointsDisplay();
-                //InitializeLocalConnection();
+                InitializeLocalConnection();
             }
 
 
@@ -380,7 +380,7 @@ namespace v1Kinect2JSON
                 {
                     ShowBodyJoints(dc);
                 }
-                //TransmitBodyJoints();
+                TransmitBodyJoints();
             }
         }
 
@@ -441,7 +441,6 @@ namespace v1Kinect2JSON
          */
         private void ShowBodyJoints(DrawingContext dc)
         {
-            KinectStatusText = "I'm working, I'm working!";
             dc.DrawRectangle(Brushes.Black, null, new Rect(0.0, 0.0, this.displayWidth, this.displayHeight));
 
             int penIndex = 0;
@@ -630,8 +629,8 @@ namespace v1Kinect2JSON
             }
         }
 
-        //private void TransmitBodyJoints()
-        //{
+        private void TransmitBodyJoints()
+        {
 
             /* This section counts the number of tracked bodies,
              * creates a new body array of that size,
@@ -639,29 +638,29 @@ namespace v1Kinect2JSON
              * The result is going from bodies, which may have null and untracked bodies,
              * to validBodies, which only contains tracked bodies, and without extra space in the array.
              */
-            /*int i = 0;
+            int i = 0;
             int j = 0;
-            foreach (Body body in bodies)
+            foreach (Skeleton body in bodies)
             {
-                if (body.IsTracked)
+                if (body.TrackingState == SkeletonTrackingState.Tracked)
                 {
                     i++;
                 }
             }
-            validSkeletons = new Body[i];
+            validBodies = new Skeleton[i];
             i = 0;
-            foreach (Body body in bodies)
+            foreach (Skeleton body in bodies)
             {
-                if (body.IsTracked)
+                if (body.TrackingState == SkeletonTrackingState.Tracked)
                 {
-                    validSkeletons[i] = bodies[j];
+                    validBodies[i] = bodies[j];
                     i++;
                 }
                 j++;
             }
 
             //Turning the tracked bodies into json
-            string json = validSkeletons.Serialize();
+            string json = validBodies.Serialize();
 
             //Copying the list so the foreach loop doesn't deal with a moving target.
             List<IWebSocketConnection> _clientsTransmit = new List<IWebSocketConnection>(_clients);
@@ -671,7 +670,7 @@ namespace v1Kinect2JSON
             {
                 socket.Send(json);
             }
-        }*/
+        }
 
         //Set up the display showing the color
         private void SetupColorDisplay()

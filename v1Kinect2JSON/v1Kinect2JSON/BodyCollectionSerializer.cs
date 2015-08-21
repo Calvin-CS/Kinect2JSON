@@ -67,7 +67,7 @@ namespace v1Kinect2JSON
         /// </summary>
         /// <param name="bodies">The Kinect bodies.</param>
         /// <returns>A JSON representation of the bodies.</returns>
-        /*public static string Serialize(this Skeleton[] bodies)
+        public static string Serialize(this Skeleton[] bodies)
         {
             JSONBodyCollection jsonBodies = new JSONBodyCollection { Bodies = new List<JSONBody>() };
 
@@ -78,19 +78,17 @@ namespace v1Kinect2JSON
                 {
                     ID = body.TrackingId.ToString(),
                     Joints = new List<JSONJoint>(),
-                    LState = (int)body.HandLeftState,
-                    RState = (int)body.HandRightState
                 };
 
                 //Add all joints, again, regardless of content
-                foreach (KeyValuePair<JointType, Joint> joint in body.Joints)
+                foreach (Joint joint in body.Joints)
                 {
                     jsonBody.Joints.Add(new JSONJoint
                     {
-                        Name = joint.Key.ToString().ToLower(),
-                        X = joint.Value.Position.X,
-                        Y = joint.Value.Position.Y,
-                        Z = joint.Value.Position.Z
+                        Name = joint.JointType.ToString().ToLower(),
+                        X = joint.Position.X,
+                        Y = joint.Position.Y,
+                        Z = joint.Position.Z
                     });
                 }
                 //Bodies is the name of the body array contained in jsonBodies.
@@ -99,7 +97,7 @@ namespace v1Kinect2JSON
             }
             
             return Serialize(jsonBodies);
-        }*/
+        }
 
         /// <summary>
         /// Serializes an object to JSON.
