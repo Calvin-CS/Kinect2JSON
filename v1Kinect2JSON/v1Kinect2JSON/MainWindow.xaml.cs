@@ -24,12 +24,9 @@ namespace v1Kinect2JSON
         //The list of websockets that this server transmits to
         static List<IWebSocketConnection> _clients = new List<IWebSocketConnection>();
 
-        //The kinect sensor, the frame reader, and the mapper (to map the skeleton to the display window)
+        //The kinect sensor, and the mapper (to map the skeleton to the display window)
         private KinectSensor kinectSensor = null;
         private CoordinateMapper coordinateMapper = null;
-
-        //Need replacement for old kinect
-        //private Microsoft.Kinect.MultiSourceFrameReader multiSourceFrameReader = null;
 
         //The list of bones and colors (for the skeleton display)
         private List<Tuple<JointType, JointType>> bones;
@@ -265,9 +262,8 @@ namespace v1Kinect2JSON
 
             if (kinectSensor != null)
             {
-
+                //enabling the various streams
                 kinectSensor.ColorStream.Enable();
-                kinectSensor.DepthStream.Enable();
                 kinectSensor.SkeletonStream.Enable();
 
                 //initializing the coordinate mapper,
@@ -398,42 +394,8 @@ namespace v1Kinect2JSON
                     this.colorPixels,
                     this.colorBitmap.PixelWidth * sizeof(int),
                     0);
-                    /*this.colorBitmap.Lock();
-
-                    // verify data and write the new color frame data to the display bitmap
-                    if ((colorFrameDescription.Width == this.colorBitmap.PixelWidth) && (colorFrameDescription.Height == this.colorBitmap.PixelHeight))
-                    {
-                        colorFrame.CopyConvertedFrameDataToIntPtr(
-                            this.colorBitmap.BackBuffer,
-                            (uint)(colorFrameDescription.Width * colorFrameDescription.Height * 4),
-                            ColorImageFormat.Bgra);
-
-                        this.colorBitmap.AddDirtyRect(new Int32Rect(0, 0, this.colorBitmap.PixelWidth, this.colorBitmap.PixelHeight));
-                    }
-
-                    this.colorBitmap.Unlock();
-                }*/
             }
         }
-
-        // Reads in the bodyFrame (if it contains bodies)
-        /*private void GetBodyJoints(BodyFrame bodyFrame)
-        {
-            //Makes sure the bodyFrame contains bodies, and if so, puts the data in bodies
-            if (bodyFrame != null)
-            {
-                if (this.bodies == null)
-                {
-                    bodies = new Body[bodyFrame.BodyCount];
-                }
-                // The first time GetAndRefreshBodyData is called, Kinect will allocate each Body in the array.
-                // As long as those body objects are not disposed and not set to null in the array,
-                // those body objects will be re-used.
-                bodyFrame.GetAndRefreshBodyData(this.bodies);
-                dataReceived = true;
-            }
-        }*/
-
 
         /* Draws tracked bodies using random colors,
          * inside a window, clipping outside joints,
@@ -451,30 +413,8 @@ namespace v1Kinect2JSON
                 if (body.TrackingState == SkeletonTrackingState.Tracked)
                 {
                     this.DrawClippedEdges(body, dc);
-
                     JointCollection joints = body.Joints;
-                    
-                    // convert the joint points to depth (display) space
-                    //Dictionary<JointType, Point> jointPoints = new Dictionary<JointType, Point>();
-                    /*
-                    for(int i = 0; i < 21; i++)
-                    //foreach (JointType jointType in joints)
-                    {
-                        // sometimes the depth(Z) of an inferred joint may show as negative
-                        // clamp down to 0.1f to prevent coordinatemapper from returning (-Infinity, -Infinity)
-                        SkeletonPoint position = joints[i].Position;
-                        if (position.Z < 0)
-                        {
-                            position.Z = InferredZPositionClamp;
-                        }
-
-                        DepthImagePoint depthSpacePoint = this.coordinateMapper.MapSkeletonPointToDepthPoint(position, DepthImageFormat.Resolution640x480Fps30);
-                        jointPoints[i] = new Point(depthSpacePoint.X, depthSpacePoint.Y);
-                    }*/
-
                     this.DrawBody(joints, dc, drawPen);
-
-
                 }
             }
             // prevent drawing outside of our render area
@@ -562,30 +502,6 @@ namespace v1Kinect2JSON
             DepthImagePoint depthPoint = this.kinectSensor.CoordinateMapper.MapSkeletonPointToDepthPoint(skelpoint, DepthImageFormat.Resolution640x480Fps30);
             return new Point(depthPoint.X, depthPoint.Y);
         }
-
-        /// <summary>
-        /// Draws a hand symbol if the hand is tracked: red circle = closed, green circle = opened; blue circle = lasso
-        /// </summary>
-        /// <param name="handState">state of the hand</param>
-        /// <param name="handPosition">position of the hand</param>
-        /// <param name="drawingContext">drawing context to draw to</param>
-        /*private void DrawHand(HandState handState, Point handPosition, DrawingContext drawingContext)
-        {
-            switch (handState)
-            {
-                case HandState.Closed:
-                    drawingContext.DrawEllipse(this.handClosedBrush, null, handPosition, HandSize, HandSize);
-                    break;
-
-                case HandState.Open:
-                    drawingContext.DrawEllipse(this.handOpenBrush, null, handPosition, HandSize, HandSize);
-                    break;
-
-                case HandState.Lasso:
-                    drawingContext.DrawEllipse(this.handLassoBrush, null, handPosition, HandSize, HandSize);
-                    break;
-            }
-        }*/
 
         /// <summary>
         /// Draws indicators to show which edges are clipping body data

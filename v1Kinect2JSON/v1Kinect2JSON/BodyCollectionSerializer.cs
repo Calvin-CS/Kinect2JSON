@@ -28,7 +28,7 @@ namespace v1Kinect2JSON
             public List<JSONBody> Bodies { get; set; }
         }
 
-        //a body has an ID, a list of joints, a left handstate, and a right handstate.
+        //a body has an ID, and a list of joints.
         [DataContract]
         class JSONBody
         {
