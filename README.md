@@ -6,6 +6,8 @@ Currently, it only supports Windows 8/8.1.
 
 The server listens on port 8181.
 
-In order to install, just download the zip from the <a href="https://github.com/Calvin-CS/Kinect2JSON/releases" target="_blank">Releases</a> page, extract it, and run the setup.exe.
+If you are using the Kinect v1, install the <a href="http://www.microsoft.com/en-us/download/confirmation.aspx?id=40278" target="_blank">Kinect 1.8 SDK</a> first.
+
+In order to install Kinect2JSON, just download the zip from the <a href="https://github.com/Calvin-CS/Kinect2JSON/releases" target="_blank">Releases</a> page, extract it, and run the setup.exe.
 
 Make sure to plug in the Kinect v2 and let windows install the drivers before running Kinect2JSON.
