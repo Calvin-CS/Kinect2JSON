@@ -153,6 +153,7 @@ namespace v1Kinect2JSON
 
         //Boolean stating whether the server has started
         public bool publicStarted = false;
+
         //The code that updates the status text based on whether the public connection has started.
         //Changed in InitializePublicConnection
         private string publicConnectionStatusText = "hello!";
@@ -210,7 +211,7 @@ namespace v1Kinect2JSON
                 //server on the public ip
                 var server2 = new WebSocketServer("ws://" + GetPublicIP() + ":8181");
                 ServerSetup(ref server2);
-                PublicConnectionStatusText = "Public Connection Started";
+                PublicConnectionStatusText = "Public Connection Started at " + GetPublicIP();
             }
             catch (System.Net.WebException e)
             {
