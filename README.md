@@ -1,6 +1,6 @@
 # Kinect2JSON readme
 
-Kinect2JSON takes the body data from the kinect v2 and turns it into JSON, making it available both locally and on the computer's public IP through Websockets.
+Kinect2JSON takes the body and handstate data from the kinect (both v1 and v2) and turns it into JSON, making it available both locally and on the computer's public IP through Websockets.
 
 Currently, it only supports Windows 8/8.1.
 
