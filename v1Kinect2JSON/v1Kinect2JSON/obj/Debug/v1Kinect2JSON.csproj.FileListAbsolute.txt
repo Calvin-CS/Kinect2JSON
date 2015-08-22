@@ -12,3 +12,7 @@ c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON
 c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.exe
 c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.pdb
 c:\users\isaac\documents\visual studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.csprojResolveAssemblyReference.cache
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\bin\Debug\v1Kinect2JSON.exe.manifest
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\bin\Debug\v1Kinect2JSON.application
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.exe.manifest
+C:\Users\Isaac\Documents\Visual Studio 2013\Projects\v1Kinect2JSON\v1Kinect2JSON\obj\Debug\v1Kinect2JSON.application
