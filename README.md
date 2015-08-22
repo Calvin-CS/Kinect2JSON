@@ -2,7 +2,7 @@
 
 Kinect2JSON takes the body and handstate data from the kinect (both v1 and v2) and turns it into JSON, making it available both locally and on the computer's public IP through Websockets.
 
-Currently, it only supports Windows 8/8.1.
+Kinect2JSON supports Windows 8/8.1 for both versions of the Kinect, and Windows 7 for the Kinect v1.
 
 The server listens on port 8181.
 
